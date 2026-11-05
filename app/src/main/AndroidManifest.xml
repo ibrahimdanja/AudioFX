@@ -46,25 +46,11 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.Equalizer314"
             android:configChanges="orientation|keyboardHidden|screenSize">
-<<<<<<< HEAD
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <!-- Registers AudioFX Studio in system audio effect panel choosers -->
-=======
-            <!-- Registers Equalizer314 as an audio-effect control panel,
-                 so it appears in the system / OEM "which app handles
-                 sound effects" chooser (Samsung "Sound quality and
-                 effects", the DISPLAY_AUDIO_EFFECT_CONTROL_PANEL
-                 picker) alongside Wavelet / Poweramp / JamesDSP / etc.
-                 Picking it here launches MainActivity. When chosen as
-                 the handler, music apps that respect the global effect
-                 session route OPEN/CLOSE_AUDIO_EFFECT_CONTROL_SESSION
-                 broadcasts to us — already handled by
-                 AudioSessionReceiver. Complementary to the dumpsys
-                 detection; does not affect global session-0 DP. -->
->>>>>>> eec0ab5 (Add AudioFX Studio dashboard and navigation)
             <intent-filter>
                 <action android:name="android.media.action.DISPLAY_AUDIO_EFFECT_CONTROL_PANEL" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -116,6 +102,50 @@
             </intent-filter>
         </receiver>
 
-    </application>
+        <!-- NotificationListenerService used purely as a privilege gate.
+             Binding to this service is the only way Android grants apps
+             MEDIA_CONTENT_CONTROL, which we need so that
+             MediaSessionManager.getActiveSessions(ourComponent) returns
+             sessions from other apps. We never read notifications:
+             onNotificationPosted/Removed are no-ops and we declare
+             disabled_filter_types covering every category, telling the
+             system to send us nothing. Same pattern Wavelet and
+             Poweramp EQ use. -->
+        <service
+            android:name="com.bearinmind.equalizer314.audio.PlaybackListenerService"
+            android:exported="false"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.notification.disabled_filter_types"
+                android:value="ongoing|silent|conversations|alerting" />
+            <meta-data
+                android:name="android.service.notification.default_filter_types"
+                android:value="" />
+        </service>
+
+        <activity
+            android:name=".LanguageActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Equalizer314" />
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+    
+        <activity
+            android:name=".BassEnhancementActivity"
+            android:exported="false"
+            android:label="Bass Enhancement"
+            android:theme="@style/Theme.AudioFXStudio" />
+</application>
 
 </manifest>

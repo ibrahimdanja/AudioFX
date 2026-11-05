@@ -78,6 +78,7 @@ class EqService : Service() {
         const val ACTION_APPLY_ROUTING_MODE = "com.bearinmind.equalizer314.APPLY_ROUTING_MODE"
         /** Reverb prefs changed — push to every attached per-session reverb. */
         const val ACTION_APPLY_REVERB = "com.bearinmind.equalizer314.APPLY_REVERB"
+        const val ACTION_APPLY_BASS_ENHANCEMENT = "com.bearinmind.equalizer314.APPLY_BASS_ENHANCEMENT"
         /** PlaybackListenerService result bundle: package → int[] session IDs. */
         const val ACTION_PLAYBACK_DETECTED = "com.bearinmind.equalizer314.PLAYBACK_DETECTED"
         const val EXTRA_DETECTED_BUNDLE = "detected_bundle"
@@ -144,6 +145,7 @@ class EqService : Service() {
     }
 
     val dynamicsManager = DynamicsProcessingManager()
+    val bassEnhancementManager = BassEnhancementManager()
     private val binder = EqBinder()
 
     /** Public for AudioOutputActivity's "Active" pin. */
@@ -979,6 +981,15 @@ class EqService : Service() {
                 sessionEffects?.detach(sessionId)
                 watchdogHandler.postDelayed({ verifyAndReclaimGlobalDp() }, 300)
                 // No stopSelf — lifecycle is owned by the EQ on/off flow.
+                return START_STICKY
+            }
+            ACTION_APPLY_BASS_ENHANCEMENT -> {
+                if (!safeStartForeground()) return START_NOT_STICKY
+
+                val enabled = intent.getBooleanExtra("bass_enabled", false)
+                val strength = intent.getIntExtra("bass_strength", 350)
+
+                bassEnhancementManager.apply(enabled, strength)
                 return START_STICKY
             }
             ACTION_APPLY_REVERB -> {
