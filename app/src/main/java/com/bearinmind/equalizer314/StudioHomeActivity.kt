@@ -92,6 +92,13 @@ class StudioHomeActivity : AppCompatActivity() {
             EnvironmentalReverbActivity::class.java,
             accentColor
         ))
+        content.addView(moduleCard(
+            "Bass enhancement",
+            "Low-frequency enhancement using Android BassBoost",
+            "OPEN BASS ENHANCEMENT",
+            BassEnhancementActivity::class.java,
+            secondaryColor
+        ))
 
         content.addView(sectionHeading("ANALYSIS AND LIBRARY"))
         content.addView(moduleCard(
