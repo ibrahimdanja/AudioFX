@@ -284,6 +284,6 @@
             android:exported="false"
             android:label="Bass Enhancement"
             android:theme="@style/Theme.AudioFXStudio" />
-    </application>
+        </application>
 
 </manifest>
