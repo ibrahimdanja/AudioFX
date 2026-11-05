@@ -272,6 +272,18 @@
                 android:value="true" />
         </service>
 
+    
+        <activity
+            android:name="com.bearinmind.equalizer314.StudioHomeActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AudioFXStudio" />
+
+        <activity
+            android:name=".BassEnhancementActivity"
+            android:exported="false"
+            android:label="Bass Enhancement"
+            android:theme="@style/Theme.AudioFXStudio" />
     </application>
 
 </manifest>

@@ -40,4 +40,19 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
+    <style name="Theme.AudioFXStudio" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#6984FF</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#57CFB7</item>
+        <item name="colorOnSecondary">#071B18</item>
+        <item name="colorSurface">#0D111B</item>
+        <item name="colorOnSurface">#F0F3FA</item>
+        <item name="android:windowBackground">#0D111B</item>
+        <item name="android:statusBarColor">#0D111B</item>
+        <item name="android:navigationBarColor">#0D111B</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+
 </resources>
