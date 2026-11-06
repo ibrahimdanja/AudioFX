@@ -18,3 +18,6 @@ ClaudeWebHelp/
 
 # Local working notes — not published
 docs/
+
+# Local build diagnostics
+build-error*.log
