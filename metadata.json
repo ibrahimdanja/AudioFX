@@ -1,0 +1,6 @@
+{
+  "name": "AudioFX Studio",
+  "description": "Professional audio effects studio featuring 10-band & 31-band graphic EQ, parametric equalizer, multiband compressor, limiter, reverb, and AutoEQ headphone correction profiles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
