@@ -1,5 +1,7 @@
 package com.bearinmind.equalizer314
 
+import com.bearinmind.equalizer314.audio.EqService
+
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
